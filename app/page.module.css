@@ -1,6 +1,7 @@
 .screen {
   position: relative;
-  width: min(420px, 100%);
+  width: min(420px, calc(100vw - 48px));
+  max-width: 100%;
   min-height: min(780px, 100vh);
   background: #ffffff;
   border-radius: 28px;
@@ -10,6 +11,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  box-sizing: border-box;
+  margin: 24px auto;
 }
 
 .screen::before {
@@ -146,6 +149,8 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .sectionHeader {
@@ -172,13 +177,16 @@
   display: flex;
   gap: 0px;
   overflow-x: auto;
-  padding: 4px 4px 12px 0px;
+  overflow-y: hidden;
+  padding: 4px 4px 12px 18px;
   margin-left: -18px;
+  margin-right: -18px;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  width: calc(100% + 36px);
 }
 
 .miniGamesRow::after {
@@ -489,8 +497,10 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 16px 0 18px;
   scroll-snap-type: x proximity;
+  width: 100%;
 }
 
 .progressRow::before {
@@ -625,6 +635,8 @@
 @media (max-width: 420px) {
   .screen {
     padding: 22px 18px 28px;
+    width: min(420px, calc(100vw - 24px));
+    margin: 12px auto;
   }
 
   .logo {
