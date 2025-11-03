@@ -1,18 +1,19 @@
 .screen {
   position: relative;
-  width: min(420px, calc(100vw - 48px));
+  width: 100vw;
   max-width: 100%;
-  min-height: min(780px, 100vh);
+  min-height: 100vh;
+  height: 100vh;
   background: #ffffff;
-  border-radius: 28px;
-  padding: 24px 22px 32px;
-  box-shadow: 0 18px 46px rgba(84, 145, 108, 0.18);
+  border-radius: 0;
+  padding: 24px;
+  box-shadow: none;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 24px;
   box-sizing: border-box;
-  margin: 24px auto;
+  margin: 0;
 }
 
 .screen::before {
@@ -20,8 +21,7 @@
   position: absolute;
   inset: 0;
   background-image: radial-gradient(circle at 16% 12%, rgba(142, 217, 162, 0.12) 0, rgba(142, 217, 162, 0) 58%),
-    radial-gradient(circle at 80% 20%, rgba(183, 240, 197, 0.15) 0, rgba(183, 240, 197, 0) 55%),
-    repeating-linear-gradient(45deg, rgba(142, 217, 162, 0.06) 0, rgba(142, 217, 162, 0.06) 2px, transparent 2px, transparent 8px);
+    radial-gradient(circle at 80% 20%, rgba(183, 240, 197, 0.15) 0, rgba(183, 240, 197, 0) 55%);
   opacity: 0.8;
   pointer-events: none;
 }
@@ -43,25 +43,36 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  overflow-x: hidden;
   overflow-y: auto;
+  flex: 1;
   padding-right: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.stack::-webkit-scrollbar {
-  width: 6px;
-}
-
-.stack::-webkit-scrollbar-thumb {
-  background: rgba(130, 217, 180, 0.4);
-  border-radius: 999px;
+.contentWrapper::-webkit-scrollbar {
+  display: none;
+  width: 0;
 }
 
 .topBar {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .logo {
@@ -91,44 +102,38 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(230, 248, 236, 0.96) 0%, rgba(214, 242, 222, 0.96) 100%);
-  color: #234238;
-  font-weight: 600;
-  box-shadow: 0 10px 22px rgba(94, 179, 122, 0.2);
+  background: linear-gradient(135deg, rgba(255, 248, 220, 1) 0%, rgba(255, 235, 180, 1) 100%);
+  color: #5a3f0f;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 12px 28px rgba(255, 184, 77, 0.4), 0 4px 8px rgba(255, 214, 107, 0.3);
   margin-left: auto;
+  margin-right: 4px;
+  border: 2px solid rgba(255, 214, 107, 0.6);
 }
 
 .diamond span:first-child {
-  font-size: 18px;
-  filter: drop-shadow(0 3px 6px rgba(255, 214, 107, 0.4));
+  font-size: 22px;
+  filter: drop-shadow(0 4px 8px rgba(255, 184, 77, 0.6));
 }
 
 .withdraw {
-  width: 38px;
-  height: 38px;
-  border-radius: 19px;
-  border: none;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(circle at 30% 30%, #c5f5d3 0%, #82d9b4 100%);
-  color: #ffffff;
-  font-size: 18px;
-  box-shadow: 0 8px 18px rgba(130, 217, 180, 0.45);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+  font-size: 42px;
+  margin-right: 0;
 }
 
-.withdraw:hover {
-  transform: scale(1.04);
-  box-shadow: 0 12px 24px rgba(130, 217, 180, 0.55);
+@keyframes spinCoin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.withdraw:focus-visible {
-  outline: 2px solid rgba(142, 217, 162, 0.8);
-  outline-offset: 2px;
-}
 
 .avatar {
   justify-self: end;
@@ -150,6 +155,7 @@
   flex-direction: column;
   gap: 18px;
   width: 100%;
+  flex-shrink: 0;
   overflow: hidden;
 }
 
@@ -498,22 +504,18 @@
   gap: 16px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 16px 0 18px;
-  scroll-snap-type: x proximity;
-  width: 100%;
+  padding: 16px 18px 18px;
+  margin: 0;
+  scroll-padding-left: 18px;
+  scroll-padding-right: 18px;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
 }
 
-.progressRow::before {
-  content: "";
-  position: absolute;
-  height: 4px;
-  left: 8px;
-  right: 8px;
-  top: 36%;
-  background: linear-gradient(90deg, rgba(94, 179, 122, 0.28) 0%, rgba(183, 240, 197, 0.65) 100%);
-  border-radius: 999px;
-  z-index: 0;
-}
 
 .progressRow::-webkit-scrollbar {
   height: 6px;
@@ -524,24 +526,67 @@
   border-radius: 999px;
 }
 
+.progressRow.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.progressRow.dragging * {
+  pointer-events: none;
+}
+
 .progressCard {
   position: relative;
-  flex: 0 0 160px;
+  flex: 0 0 280px;
+  min-height: 320px;
   padding: 18px 16px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96) 0%, rgba(232, 250, 240, 0.92) 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 26px;
   box-shadow: 0 16px 30px rgba(84, 145, 108, 0.16);
   display: flex;
   flex-direction: column;
   gap: 14px;
-  scroll-snap-align: start;
   z-index: 1;
   border: 1px solid rgba(203, 239, 218, 0.7);
+  touch-action: none;
+  overflow: hidden;
+  filter: blur(0.5px);
+}
+
+.progressCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(232, 250, 240, 0) 100%);
+  z-index: 0;
+  border-radius: 26px;
+}
+
+.progressCard > * {
+  position: relative;
+  z-index: 1;
 }
 
 .progressCardUnlocked {
   box-shadow: 0 18px 40px rgba(255, 214, 107, 0.36);
   border: 1px solid rgba(255, 214, 107, 0.6);
+}
+
+.progressCardLocked {
+  opacity: 0.65;
+  filter: grayscale(0.4);
+}
+
+.progressCardLocked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 100%);
+  border-radius: 26px;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .progressHighlight {
@@ -551,6 +596,13 @@
   border-radius: 30px;
   background: radial-gradient(circle at 50% 0%, rgba(255, 214, 107, 0.45), rgba(255, 214, 107, 0));
   z-index: -1;
+}
+
+.progressText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
 }
 
 .progressBadge {
@@ -567,47 +619,94 @@
 }
 
 .progressTitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2a523f;
+  font-size: 20px;
+  font-weight: 800;
   margin: 0;
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+  padding: 10px 18px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(232, 250, 240, 0.78) 100%);
+  border: 1px solid rgba(36, 96, 68, 0.12);
+  box-shadow: 0 10px 22px rgba(36, 96, 68, 0.12);
+  color: #1f3d2c;
+  text-shadow: none;
+  text-transform: none;
+  min-height: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 .progressSubtitle {
-  font-size: 13px;
-  color: #4f7a64;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b6a52;
   margin: 0;
+  line-height: 1.4;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(34, 66, 52, 0.08);
+  box-shadow: 0 6px 14px rgba(23, 62, 42, 0.12);
 }
 
 .statusChip {
-  align-self: flex-start;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
   border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  background: rgba(255, 214, 107, 0.18);
-  color: #7c5f1a;
-  box-shadow: inset 0 0 0 1px rgba(255, 214, 107, 0.55);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  background: linear-gradient(135deg, rgba(255, 214, 107, 0.95) 0%, rgba(255, 184, 77, 0.95) 100%);
+  color: #5a3f0f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  z-index: 4;
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
 }
 
 .lockedChip {
-  background: rgba(94, 179, 122, 0.14);
-  color: #3d7a56;
-  box-shadow: inset 0 0 0 1px rgba(94, 179, 122, 0.26);
+  top: calc(50% + 50px);
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(94, 179, 122, 0.95) 0%, rgba(70, 150, 95, 0.95) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .lockBadge {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  background: rgba(94, 179, 122, 0.22);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 245, 245, 0.98) 100%);
   display: grid;
   place-items: center;
-  font-size: 16px;
-  color: #2a523f;
+  font-size: 36px;
+  color: #4a4a4a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+  z-index: 3;
+  border: 3px solid rgba(94, 179, 122, 0.6);
+  animation: lockPulse 2s ease-in-out infinite;
+}
+
+@keyframes lockPulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
 }
 
 .microLeaf {
@@ -630,13 +729,12 @@
   font-size: 12px;
   color: rgba(79, 122, 100, 0.8);
   margin: 0;
+  width: 100%;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 768px) {
   .screen {
-    padding: 22px 18px 28px;
-    width: min(420px, calc(100vw - 24px));
-    margin: 12px auto;
+    padding: 16px;
   }
 
   .logo {
@@ -644,6 +742,185 @@
   }
 
   .diamond {
-    padding: 9px 16px;
+    padding: 10px 14px;
+    margin-right: 4px;
+    gap: 6px;
+    font-size: 15px;
+  }
+
+  .diamond span:first-child {
+    font-size: 20px;
+  }
+
+  .withdraw {
+    margin-right: 4px;
+  }
+
+  .miniGameIcon {
+    width: 84px;
+    height: 84px;
+    border-radius: 28px;
+  }
+
+  .miniGameImage {
+    width: 84px !important;
+    height: 84px !important;
+  }
+
+  .miniGameItem {
+    flex: 0 0 140px;
+    gap: 10px;
+  }
+
+  .miniGameName {
+    font-size: 13px;
+  }
+
+  .progressCard {
+    flex: 0 0 280px;
+    min-height: 320px;
+    padding: 18px 16px;
+    gap: 14px;
+  }
+}
+
+@media (min-width: 769px) {
+  .logo {
+    font-size: 26px;
+    gap: 12px;
+  }
+
+  .logoMark {
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    font-size: 26px;
+  }
+
+  .diamond {
+    padding: 12px 24px;
+    border-radius: 28px;
+    font-size: 20px;
+    margin-right: 6px;
+  }
+
+  .diamond span:first-child {
+    font-size: 26px;
+  }
+
+  .withdraw {
+    font-size: 52px;
+    margin-right: 0;
+  }
+
+  .miniGameItem {
+    flex: 0 0 180px;
+    gap: 14px;
+  }
+
+  .miniGameIcon {
+    width: 110px;
+    height: 110px;
+    border-radius: 36px;
+  }
+
+  .miniGameName {
+    font-size: 16px;
+  }
+
+  .miniGameBadge {
+    top: -6px;
+    right: 8px;
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .progressRow {
+    gap: 24px;
+    padding: 20px 26px 24px;
+    margin: 0;
+    scroll-padding-left: 26px;
+    scroll-padding-right: 26px;
+  }
+
+
+  .progressCard {
+    flex: 0 0 600px;
+    min-height: 420px;
+    padding: 24px 22px;
+    gap: 18px;
+    border-radius: 32px;
+  }
+
+  .progressCard::before {
+    border-radius: 32px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(232, 250, 240, 0) 100%);
+  }
+
+  .progressCardLocked::after {
+    border-radius: 32px;
+  }
+
+  .progressBadge {
+    width: 80px;
+    height: 80px;
+    font-size: 28px;
+    border-radius: 28px;
+  }
+
+  .progressText {
+    gap: 6px;
+  }
+
+  .progressTitle {
+    font-size: 24px;
+    padding: 12px 24px;
+    border-radius: 20px;
+  }
+
+  .progressSubtitle {
+    font-size: 15px;
+    padding: 0 12px;
+  }
+
+  .statusChip {
+    bottom: 24px;
+    left: 22px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .lockedChip {
+    top: calc(50% + 70px);
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .lockBadge {
+    width: 96px;
+    height: 96px;
+    font-size: 48px;
+    border: 4px solid rgba(94, 179, 122, 0.6);
+  }
+
+  .sectionTitle {
+    font-size: 26px;
+  }
+
+  .sectionSubtitle {
+    font-size: 15px;
+  }
+
+  .microLeaf {
+    font-size: 22px;
+    bottom: 12px;
+    right: 16px;
+  }
+
+  .microCell {
+    font-size: 20px;
+    top: 14px;
+    left: 14px;
   }
 }
